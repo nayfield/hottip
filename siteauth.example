@@ -1,0 +1,10 @@
+#
+# environment file contains your download links with auth keys.
+# copy to .siteauth
+# torload appends the ID to this link.
+#
+
+
+# Example
+randomsite='http://ubuntuisos.com/download.php&authkey=mysecretkey&thepass=mysecretpass&id='
+

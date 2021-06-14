@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source .siteauth || exit 1
+
+
+# Usage: torload <site> <id> <tag>
+
+
+TD=$HOME/.tiptmp
+[ ! -d "$TD" ] && mkdir $TD
+# We clean up tmp later because rtxmlrpc can be slow
+find $TD -type f -ctime +5 -delete
+
+
+SITE=$1
+TID=$2
+TTAG=$3
+
+URL=${!SITE}
+
+if [ -z "$URL" ] ; then
+  echo "Error!  no .siteauth entry for $SITE"
+  exit 1
+fi
+
+URL=${!SITE}${TID}
+
+TFILE=$(mktemp -p $TD -t torloadXXXXXXXX.torrent)
+curl -so $TFILE "$1"
+
+rtxmlrpc -q load.start '' $TFILE "d.custom.set=getter,$TAG" $*
+
+exit $?
+
