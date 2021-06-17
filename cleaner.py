@@ -62,10 +62,7 @@ def tags_by_overage(torl, tagl):
     for t in tagl.keys():
         overd[t] = tagusage(torl, t) - int(tagl[t])
 
-    retval = []
-    for i in sorted(overd.keys(), key=lambda x: x[1], reverse=True):
-        retval.append((i, overd[i]))
-    return retval
+    return sorted(overd.items(), key=lambda x: x[1], reverse=True)
 
 
 
@@ -82,7 +79,7 @@ def get_culls(torl, tag, holdt, goal):
     for t in tl:
         if culled > goal:
             continue
-        if t['seedtime'] < holdt*60*60*24:
+        if t['seedtime'] > holdt*60*60:
             hashlist.append(t['hash'])
             culled += t['size']/1024/1024/1024
 
@@ -119,7 +116,6 @@ if __name__ == '__main__':
     torlist = get_tors()
 
     boxmax = int(conf['DEFAULT'].get('max'))
-    boxmax = 2649
     boxused = tagusage(torlist, None)
     over = boxused - boxmax
 
@@ -136,7 +132,7 @@ if __name__ == '__main__':
             if tgtleft <= 0:
                 continue
             tag, tover = tagd
-            holdt = conf[tag].get('hold')
+            holdt = int(conf[tag].get('hold'))
             hashs, tsize = get_culls(torlist, tag, holdt, tover)
             culls.extend(hashs)
             tgtleft -= tsize
