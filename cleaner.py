@@ -6,12 +6,18 @@ import subprocess
 import json
 import pickle
 
+def scmd(st):
+    retval = []
+    remote = False
+    if remote:
+        retval = ['ssh', remote]
+    retval.append(st)
+    return retval
 
 def remove_unknowns():
     ''' Remove dead torrents '''
     rcmd = 'rtcontrol -q -o hash message="*Unregistered*"  --cull --yes'
-    scmd = [rcmd]
-    retval = subprocess.call(scmd)
+    retval = subprocess.call(scmd(rcmd))
 
     return retval
 
@@ -23,8 +29,7 @@ def get_tors():
     fields.extend(['custom_1', 'uploaded', 'is_complete', 'is_open', 'started', 'custom_tm_uploaded'])
 
     rcmd = "rtcontrol -q --json \* -o"+",".join(fields)
-    scmd = [rcmd]
-    cout = subprocess.check_output(scmd)
+    cout = subprocess.check_output(scmd(rcmd))
 
     return json.loads(cout)
 
@@ -89,8 +94,7 @@ def get_culls(torl, tag, holdt, goal):
 def do_culls(culll):
     ''' cull a list of hashes'''
     rcmd = "rtcontrol hash="+','.join(culll)+" --cull --yes"
-    scmd = [rcmd]
-    retval = subprocess.call(scmd)
+    retval = subprocess.call(scmd(rcmd))
     return retval
 
 def save_state(fn, struc):
@@ -144,7 +148,7 @@ if __name__ == '__main__':
             culls.extend(hashs)
         # could add another panic here if still have tgtleft
 
-        do_culls(hashs)
+        cullout = do_culls(hashs)
 
         # Since we culled, grab a new torlist
         torlist = get_tors()
