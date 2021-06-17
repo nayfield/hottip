@@ -1,4 +1,4 @@
-#/usr/bin/python
+#!/usr/bin//env python
 
 from flask import Flask, request
 import requests
@@ -28,7 +28,7 @@ def sns():
 
     return 'OK\n'
 
-# TODO remove eventually
+# TODO remove eventually if running as flask run
 if __name__ == '__main__':
     app.run(
         host = "0.0.0.0",
