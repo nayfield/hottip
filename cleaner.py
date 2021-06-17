@@ -18,7 +18,9 @@ def remove_unknowns():
 
 def get_tors():
     ''' return json of minimal client state'''
-    fields = ['hash', 'custom_getter', 'size', 'seedtime', 'alias', 'message']
+    fields = ['hash', 'custom_getter', 'size', 'seedtime', 'alias', 'message', 'name']
+    # Some extra stuff might not be needed
+    fields.extend(['custom_1', 'uploaded', 'is_complete', 'is_open', 'started', 'custom_tm_uploaded'])
 
     rcmd = "rtcontrol -q --json \* -o"+",".join(fields)
     scmd = [rcmd]
