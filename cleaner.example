@@ -1,0 +1,35 @@
+# cleanup config file
+# $HOME/.hottip/cleaner.cfg
+
+[DEFAULT]
+# only remove items that have seeded for this many hours
+# can be specified per topic
+hold=50
+
+# Target size of torrent storage (GB)
+# DEFAULT is for the whole box
+# You should leave some headroom for new DLs, non-torrent storage, and orphans
+# This will be GiB (powers of 2 - 1024 not 1000)
+max = 2850
+
+
+# A tag policy
+[Alpha]
+tgt = 500
+
+# Another tag
+[Beta]
+tgt = 1500
+hold = 26
+
+# Untagged torrents from a particular tracker (the alias from rtcontrol)
+[Alias:bigtracker.com]
+tgt = 500
+
+# How cleanup happens:
+# if size < DEFAULT[max] do nothing
+# with tags sorted by most GB over target,
+# remove torrents older than hold until under default max
+# if under tgt go to next tag
+
+# TODO - allow for tgt and max per tag?
