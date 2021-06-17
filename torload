@@ -6,8 +6,8 @@ source .siteauth || exit 1
 # Usage: torload <site> <id> <tag>
 
 
-TD=$HOME/.tiptmp
-[ ! -d "$TD" ] && mkdir $TD
+TD=$HOME/.hottip/tmp
+
 # We clean up tmp later because rtxmlrpc can be slow
 find $TD -type f -ctime +5 -delete
 
