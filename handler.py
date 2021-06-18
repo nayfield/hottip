@@ -10,8 +10,12 @@ app = Flask(__name__)
 def msg_process(msg):
     for k in msg.keys():
         sys.stdout.write(k+" : "+str(msg[k])+'\n')
-        
-
+    atts = k['MessageAttributes']
+    site = atts['Tracker']['Value']
+    tid = atts['Id']['Value']
+    topic = atts['Topic']['Value']
+    rcmd = ['./torload', site, tid, topic ]
+    retval = subprocess.call(rcmd)
 
 @app.route('/signalserver', methods = ['POST'])
 def sns():
