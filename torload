@@ -26,7 +26,7 @@ fi
 URL=${!SITE}${TID}
 
 TFILE=$(mktemp -p $TD -t torloadXXXXXXXX.torrent)
-curl -so $TFILE "$1"
+curl -so $TFILE "$URL"
 
 rtxmlrpc -q load.start '' $TFILE "d.custom.set=getter,$TAG" $*
 
