@@ -4,13 +4,14 @@ from flask import Flask, request
 import requests
 import json
 import sys
+import subprocess
 
 app = Flask(__name__)
 
 def msg_process(msg):
     for k in msg.keys():
         sys.stdout.write(k+" : "+str(msg[k])+'\n')
-    atts = k['MessageAttributes']
+    atts = msg['MessageAttributes']
     site = atts['Tracker']['Value']
     tid = atts['Id']['Value']
     topic = atts['Topic']['Value']
