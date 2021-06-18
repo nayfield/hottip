@@ -11,12 +11,12 @@ def scmd(st):
     remote = False
     if remote:
         retval = ['ssh', remote]
-    retval.append(st)
+    retval.extend(st)
     return retval
 
 def remove_unknowns():
     ''' Remove dead torrents '''
-    rcmd = 'rtcontrol -q -o hash message="*Unregistered*"  --cull --yes'
+    rcmd = ['rtcontrol', '-q', '-ohash', 'message="*Unregistered*"', '--cull', '--yes']
     retval = subprocess.call(scmd(rcmd))
 
     return retval
@@ -28,7 +28,7 @@ def get_tors():
     # Some extra stuff might not be needed
     fields.extend(['custom_1', 'uploaded', 'is_complete', 'is_open', 'started', 'custom_tm_uploaded'])
 
-    rcmd = "rtcontrol -q --json \* -o"+",".join(fields)
+    rcmd = ["rtcontrol", '-q', '--json', '*', '-o'+','.join(fields) ]
     cout = subprocess.check_output(scmd(rcmd))
 
     return json.loads(cout)
@@ -90,7 +90,7 @@ def get_culls(torl, tag, holdt, goal):
 
 def do_culls(culll):
     ''' cull a list of hashes'''
-    rcmd = "rtcontrol hash="+','.join(culll)+" --cull --yes"
+    rcmd = [ 'rtcontrol', 'hash='+','.join(culll), "--cull",  "--yes" ]
     retval = subprocess.call(scmd(rcmd))
     return retval
 
