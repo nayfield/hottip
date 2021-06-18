@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .siteauth || exit 1
+source $HOME/.hottip/siteauth || exit 1
 
 
 # Usage: torload <site> <id> <tag>

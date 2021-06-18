@@ -1,6 +1,6 @@
 #
 # environment file contains your download links with auth keys.
-# copy to .siteauth
+# copy to $HOME/.hottip/siteauth and setup
 # torload appends the ID to this link.
 #
 
