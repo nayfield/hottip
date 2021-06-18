@@ -28,7 +28,7 @@ URL=${!SITE}${TID}
 TFILE=$(mktemp -p $TD -t torloadXXXXXXXX.torrent)
 curl -so $TFILE "$URL"
 
-rtxmlrpc -q load.start '' $TFILE "d.custom.set=getter,$TAG" $*
+rtxmlrpc -q load.start '' $TFILE "d.custom.set=getter,$TTAG"
 
 exit $?
 
