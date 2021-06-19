@@ -31,26 +31,27 @@ def get_tors():
     rcmd = ["rtcontrol", '-q', '--json', '*', '-o'+','.join(fields) ]
     cout = subprocess.check_output(scmd(rcmd))
 
-    return json.loads(cout)
+    # onetag = non-overlapping tags
+    retval = []
+    for t in json.loads(cout):
+        if t['custom_getter']:
+            t['onetag'] = t['custom_getter']
+        elif t['custom_1']:
+            t['onetag'] = 'rutorrent:'+t['custom_1']
+        else
+            t['onetag'] = 'Alias:'+t['alias']
+        retval.append(t)
+    return retval
 
-#def tag_tors(torl):
-#    '''tag tors with most specific tags '''
-#    retval = []
-#    for t in torl:
+
 
 
 def filterlist(torl, tag):
     if not tag:
         return torl
     retval = []
-    al = None
-    if tag.startswith('Alias'):
-        al = tag.split(':')[1]
     for t in torl:
-        if al:
-            if t['alias'] == al:
-                retval.append(t)
-        elif t['custom_getter'] == tag:
+        if t['onetag'] == tag:
                 retval.append(t)
     return retval
 
