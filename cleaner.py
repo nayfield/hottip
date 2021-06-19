@@ -33,6 +33,12 @@ def get_tors():
 
     return json.loads(cout)
 
+#def tag_tors(torl):
+#    '''tag tors with most specific tags '''
+#    retval = []
+#    for t in torl:
+
+
 def filterlist(torl, tag):
     if not tag:
         return torl
@@ -100,7 +106,7 @@ def save_state(fn, struc):
     # TODO write out to a tmp file then move into place
     # in order to transact atomically
     with open(fn, 'wb') as output:
-        pickle.dump(struc, output, -1)
+        pickle.dump(struc, output, 4)
 
 
 if __name__ == '__main__':
