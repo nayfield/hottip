@@ -38,7 +38,7 @@ def get_tors():
             t['onetag'] = t['custom_getter']
         elif t['custom_1']:
             t['onetag'] = 'rutorrent:'+t['custom_1']
-        else
+        else:
             t['onetag'] = 'Alias:'+t['alias']
         retval.append(t)
     return retval
