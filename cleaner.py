@@ -16,7 +16,7 @@ def scmd(st):
 
 def remove_unknowns():
     ''' Remove dead torrents '''
-    rcmd = ['rtcontrol', '-q', '-ohash', 'message="*Unregistered*"', '--cull', '--yes']
+    rcmd = ['rtcontrol', '-q', '-ohash', 'message=*Unregistered*', '--cull', '--yes']
     retval = subprocess.call(scmd(rcmd))
 
     return retval
