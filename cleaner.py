@@ -73,7 +73,7 @@ def tags_by_overage(torl, tagl):
 
 
 
-def get_culls(torl, tag, holdt, goal):
+def get_culls(torl, tag, holdt, goal, exempt=None):
     ''' return oldest items in torlist,
          matching tag,
          seeded over holdt,
@@ -86,6 +86,9 @@ def get_culls(torl, tag, holdt, goal):
     for t in tl:
         if culled > goal:
             continue
+        if exempt:
+            if t['onetag'] in exempt.split(','):
+                continue
         if t['seedtime'] > holdt*60*60:
             hashlist.append(t['hash'])
             culled += t['size']/1024/1024/1024
@@ -146,7 +149,7 @@ if __name__ == '__main__':
 
         if tgtleft > 0:
             # now we fifo everything
-            hashs, tsize = get_culls(torlist, None, 1, tgtleft)
+            hashs, tsize = get_culls(torlist, None, 1, tgtleft, exempt=conf['DEFAULT'].get('exempt'))
             tgtleft -= tsize
             culls.extend(hashs)
         # could add another panic here if still have tgtleft
