@@ -12,6 +12,9 @@ hold=50
 # This will be GiB (powers of 2 - 1024 not 1000)
 max = 2850
 
+# A list of tags exempt from FULL cleanup.
+# See cleanup description below.
+exempt = tag1,tag2,Alias:sometracker.com
 
 # A tag policy
 [Alpha]
@@ -27,9 +30,22 @@ hold = 26
 tgt = 500
 
 # How cleanup happens:
-# if size < DEFAULT[max] do nothing
-# with tags sorted by most GB over target,
-# remove torrents older than hold until under default max
-# if under tgt go to next tag
+# if size < DEFAULT[max] do nothing, else:
+#  Attempt to cull defined tags down to tgt
+#   In order of tag overage from tgt
+#   Not violating hold
+#   And stopping when under default max
+# If we are still over max,
+#  remove fifo from all torrents
+#   not violating hold
+#   and skipping DEFAULT[exempt] onetags
+
+# What is a onetag?
+#  The first tag to be found:
+#  1. custom_getter (tagged by handler)
+#  2. custom_1 (rutorrent tag with rutorrent: prepended)
+#  3. tracker (alias with Alias: prepended)
+#  All tags are in 'onetag' syntax.
+
 
 # TODO - allow for tgt and max per tag?
