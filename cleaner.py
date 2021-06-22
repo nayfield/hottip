@@ -67,8 +67,9 @@ def tags_by_overage(torl, tagl):
         input tagl[tag] = targetusage'''
     overd = {}
     for t in tagl.keys():
-        overd[t] = tagusage(torl, t) - int(tagl[t])
-
+        overt = tagusage(torl, t) - int(tagl[t])
+        if overt > 0:
+            overd[t] = overt
     return sorted(overd.items(), key=lambda x: x[1], reverse=True)
 
 
@@ -143,7 +144,7 @@ if __name__ == '__main__':
                 continue
             tag, tover = tagd
             holdt = int(conf[tag].get('hold'))
-            hashs, tsize = get_culls(torlist, tag, holdt, tover)
+            hashs, tsize = get_culls(torlist, tag, holdt, min(tover, tgtleft))
             culls.extend(hashs)
             tgtleft -= tsize
 
