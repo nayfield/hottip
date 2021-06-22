@@ -36,16 +36,14 @@ tgt = 500
 #   Not violating hold
 #   And stopping when under default max
 # If we are still over max,
-#  remove fifo from all torrents
-#   not violating hold
+#  scan fifo from all torrents
+#   but not violating hold
 #   and skipping DEFAULT[exempt] onetags
 
 # What is a onetag?
-#  The first tag to be found:
+#  Per torrent, the first tag to be found in this order:
 #  1. custom_getter (tagged by handler)
 #  2. custom_1 (rutorrent tag with rutorrent: prepended)
 #  3. tracker (alias with Alias: prepended)
+#  Thus - Alias: tags only apply if a getter or rutorrent tag is not applied.
 #  All tags are in 'onetag' syntax.
-
-
-# TODO - allow for tgt and max per tag?
