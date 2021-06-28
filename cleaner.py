@@ -5,6 +5,7 @@ import configparser
 import subprocess
 import json
 import pickle
+import time
 
 def scmd(st):
     retval = []
@@ -83,8 +84,10 @@ def get_culls(torl, tag, holdt, goal, exempt=None):
          not exceeding over
          return tuple ([hashes], size)'''
     fl = filterlist(torl, tag)
-    tl = sorted(fl, key=lambda k: k['seedtime'], reverse=True)
+    tl = sorted(fl, key=lambda k: k['completed'])
     culled = 0
+    cutoff = int(time.time())
+    cutoff -= holdt*60*60
     hashlist = []
     for t in tl:
         if culled > goal:
@@ -92,7 +95,7 @@ def get_culls(torl, tag, holdt, goal, exempt=None):
         if exempt:
             if t['onetag'] in exempt.split(','):
                 continue
-        if t['seedtime'] > holdt*60*60:
+        if t['completed'] < cutoff:
             hashlist.append(t['hash'])
             culled += t['size']/1024/1024/1024
 
