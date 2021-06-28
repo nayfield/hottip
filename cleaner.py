@@ -34,8 +34,8 @@ def get_tors():
     # onetag = non-overlapping tags
     retval = []
     for t in json.loads(cout):
-        if t['seedtime'] == None:
-            t['seedtime'] = 0
+        if not t['is_complete']:
+            continue
         if t['custom_getter']:
             t['onetag'] = t['custom_getter']
         elif t['custom_1']:
