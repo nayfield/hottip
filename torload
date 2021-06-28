@@ -1,15 +1,15 @@
 #!/bin/bash
 
-source $HOME/.hottip/siteauth || exit 1
+source "$HOME/.hottip/siteauth" || exit 1
 
 
 # Usage: torload <site> <id> <tag>
 
 
-TD=$HOME/.hottip/tmp
+TD="$HOME/.hottip/tmp"
 
 # We clean up tmp later because rtxmlrpc can be slow
-find $TD -type f -ctime +5 -delete
+find "$TD" -type f -ctime +5 -delete
 
 
 SITE=$1
@@ -25,10 +25,11 @@ fi
 
 URL=${!SITE}${TID}
 
-TFILE=$(mktemp -p $TD -t torloadXXXXXXXX.torrent)
-curl -so $TFILE "$URL"
+TFILE=$(mktemp -p "$TD" -t torloadXXXXXXXX.torrent)
 
-rtxmlrpc -q load.start '' $TFILE "d.custom.set=getter,$TTAG"
+curl -so "$TFILE" "$URL"
+
+rtxmlrpc -q load.start '' "$TFILE" "d.custom.set=getter,$TTAG"
 
 exit $?
 
