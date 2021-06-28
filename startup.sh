@@ -3,7 +3,7 @@
 
 BASE="$(dirname "$0")"
 
-cd "${BASE}"
+cd "${BASE}" || exit 1
 
 # Make hottip and tmp dir
 TD=$HOME/.hottip/tmp
@@ -33,7 +33,7 @@ err=0
 for need in rtxmlrpc rtcontrol git screen
 do
   which $need
-  err=$(($err + $?))
+  err=$((err + $?))
 done
 
 if [ $err -gt 0 ] ; then
@@ -42,16 +42,16 @@ if [ $err -gt 0 ] ; then
 fi
 
 # Default to foreground
-MODE=fg
+MODE="fg"
 
 if [ "$1" = "bg" ] ; then
-  MODE=bg
+  MODE="bg"
 fi
 
 if [ "$MODE" = "fg" ] ; then
-    ${BASE}/venv/bin/python3 -m flask run
+    "${BASE}/venv/bin/python3" -m flask run
 else
-    screen -d -m -S tiphandler ${BASE}/venv/bin/python3 -m flask run
+    screen -d -m -S tiphandler "${BASE}/venv/bin/python3 -m flask run"
     echo "running in screen"
 fi
 
