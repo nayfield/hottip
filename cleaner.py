@@ -38,6 +38,8 @@ def get_tors():
     rcmd = ["rtcontrol", '-q', '--json', '*', '-o' + ','.join(fields)]
     cout = subprocess.check_output(scmd(rcmd))
 
+    # TODO custom_getter references are deprecated
+    
     # onetag = non-overlapping tags
     retval = []
     for t in json.loads(cout):
@@ -46,7 +48,7 @@ def get_tors():
         if t['custom_getter']:
             t['onetag'] = t['custom_getter']
         elif t['custom_1']:
-            t['onetag'] = 'rutorrent:' + t['custom_1']
+            t['onetag'] = t['custom_1']
         else:
             t['onetag'] = 'Alias:' + t['alias']
         retval.append(t)
