@@ -42,8 +42,7 @@ tgt = 500
 
 # What is a onetag?
 #  Per torrent, the first tag to be found in this order:
-#  1. custom_getter (tagged by handler)
-#  2. custom_1 (rutorrent tag with rutorrent: prepended)
-#  3. tracker (alias with Alias: prepended)
+#  1. custom_1 (availbe in rutorrent)
+#  2. tracker (alias with Alias: prepended)
 #  Thus - Alias: tags only apply if a getter or rutorrent tag is not applied.
 #  All tags are in 'onetag' syntax.

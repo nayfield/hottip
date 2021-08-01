@@ -39,7 +39,7 @@ def get_tors():
     cout = subprocess.check_output(scmd(rcmd))
 
     # TODO custom_getter references are deprecated
-    
+
     # onetag = non-overlapping tags
     retval = []
     for t in json.loads(cout):
