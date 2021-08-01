@@ -29,7 +29,7 @@ TFILE=$(mktemp -p "$TD" -t torloadXXXXXXXX.torrent)
 
 curl -so "$TFILE" "$URL"
 
-rtxmlrpc -q load.start '' "$TFILE" "d.custom.set=getter,$TTAG"
+rtxmlrpc -q load.start '' "$TFILE" "d.custom1.set=$TTAG"
 
 exit $?
 
