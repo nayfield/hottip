@@ -7,6 +7,8 @@ import json
 import pickle
 import time
 
+# TODO - switch from config to use client_rtcontrol or client_trans.
+# TODO - move more logic to common
 
 def scmd(st):
     retval = []

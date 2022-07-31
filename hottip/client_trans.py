@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 
+# Note this can work remotely
+# client = open_client('user', 'pass', host="ahostname", port=443, path="/transmission/rpc/", proto='https')
 
 import transmission_rpc
 from urllib.parse import urlparse
@@ -21,7 +23,6 @@ def get_tors(c):
     . hash
     . name
     . status
-    . fin (bool)
     . size (bytes)
     . labels (list of labels)
     . label (first label)
@@ -39,14 +40,18 @@ def get_tors(c):
         rec["hash"]     = t.hashString
         rec["name"]     = t.name
         rec["status"]   = t.status
-        rec["fin"]      = t.is_finished
-        rec['size']     = t.sizeWhenDone
+        rec["size"]     = t.sizeWhenDone
         rec["labels"]   = t.labels
-        rec["label"]    = t.labels[0]
+        rec["tracker"]  = urlparse(t.trackers[0]['announce']).hostname
+        if t.labels:
+            rec["onetag"]    = t.labels[0]
+        else:
+            rec["onetag"]    = rec["tracker"]
         rec["err"]      = t.errorString
         rec["donets"]   = t.doneDate
         rec["actts"]    = t.activityDate
-        rec["tracker"]  = urlparse(t.trackers[0]['announce']).hostname
+        rec["up"]       = t.uploadedEver
+        rec["down"]     = t.downloadedEver
 
         retval.append(rec)
 
@@ -62,7 +67,7 @@ def add_torrent(c, url, tag=None):
     ret = c.add_torrent(url)
 
     if tag:
-        c.change_torrent(ret, tag)
+        c.change_torrent(ret.id, labels=[tag])
 
     return ret.id
 
