@@ -48,7 +48,7 @@ def get_tors(c):
         if t.labels:
             rec["onetag"]    = t.labels[0]
         else:
-            rec["onetag"]    = rec["tracker"]
+            rec["onetag"]    = 'Alias:'+rec["tracker"]
         rec["err"]      = t.errorString
         rec["donets"]   = t.doneDate
         rec["actts"]    = t.activityDate
