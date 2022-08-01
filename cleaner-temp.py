@@ -3,6 +3,7 @@
 import os
 import configparser
 
+import hottip.client_trans
 import hottip.common
 
 # TODO - switch from config to use client_rtcontrol or client_trans.
