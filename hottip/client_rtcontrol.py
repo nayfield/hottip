@@ -25,7 +25,20 @@ def remove_unknowns():
     return retval
 
 
-# TODO match transmission
+# TODO match fields to match transmission
+# id - uppercased hash (can be passed to rtcontrol)
+# hash - lowercased (like trans)
+# name
+# status - 'seeding' or other
+# size
+# labels - list of custom_1
+# tracker (alias)
+# onetag - custom_1 or tracker
+# err - message
+# donets custom_tm_completed?
+# accts ?
+# up, down (are these _total?)
+
 def get_tors():
     """ return json of minimal client state"""
     fields = ['hash', 'custom_getter', 'size', 'seedtime', 'alias', 'message', 'name', 'completed']

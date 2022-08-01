@@ -25,9 +25,11 @@ def get_tors(c):
     . status
     . size (bytes)
     . labels (list of labels)
-    . label (first label)
+    - tracker
+    . onetag (first label, or tracker)
     . err (tracker error string)
     . timestamps: donets, actts
+    - bytes xfered: up,down
 
     """
 
