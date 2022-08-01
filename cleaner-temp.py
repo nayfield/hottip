@@ -2,23 +2,13 @@
 
 import os
 import configparser
-import subprocess
-import json
-import pickle
-import time
+
 import hottip.client_trans
+import hottip.common
 
 # TODO - switch from config to use client_rtcontrol or client_trans.
 # TODO - move more logic to common
 
-
-def save_state(fn, struc):
-    """ pickle struc to fn"""
-    # this is for other things to look at TODO
-    # TODO write out to a tmp file then move into place
-    # in order to transact atomically
-    with open(fn, 'wb') as output:
-        pickle.dump(struc, output, 4)
 
 
 if __name__ == '__main__':
@@ -35,4 +25,4 @@ if __name__ == '__main__':
     torlist = hottip.client_trans.get_tors(client)
 
 
-    save_state(stfile, torlist)
+    hottip.common.save_state(stfile, torlist)
