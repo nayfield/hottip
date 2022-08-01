@@ -66,7 +66,7 @@ def save_state(mys, struc):
     # this is for other things to look at TODO
     # TODO write out to a tmp file then move into place
     # in order to transact atomically
-    with open(fn, 'wb') as output:
+    with open(mys, 'wb') as output:
         pickle.dump(struc, output, 4)
 
 def load_state(mys):
