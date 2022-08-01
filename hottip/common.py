@@ -3,7 +3,6 @@
 import os
 import pickle
 import time
-import client_trans
 
 
 
